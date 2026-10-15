@@ -4,6 +4,7 @@ import com.example.taskadministration.dto.request.TaskRequest;
 import com.example.taskadministration.dto.response.TaskResponse;
 import com.example.taskadministration.model.TaskMapper;
 import com.example.taskadministration.model.entity.TaskEntity;
+import com.example.taskadministration.model.enums.Status;
 import com.example.taskadministration.repository.TaskRepository;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
@@ -41,11 +44,12 @@ class TaskServiceTest {
         Mockito.when(this.taskMapper.toTaskResponse(Mockito.any(TaskEntity.class))).thenReturn(taskResponse);
 
         this.taskService.createTask(taskRequest);
+
         Mockito.verify(this.taskRepository,Mockito.times(1)).save(Mockito.any(TaskEntity.class));
     }
 
     @Test
-    void getTaskById(){
+    void getTaskById() {
         TaskEntity taskEntity = new TaskEntity();
         Mockito.when(this.taskRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(taskEntity));
 
@@ -53,6 +57,23 @@ class TaskServiceTest {
 
         this.taskService.getTaskById(1600L);
 
-        Mockito.verify(this.taskRepository,Mockito.times(1)).findById(Mockito.anyLong());
+        Mockito.verify(this.taskRepository, Mockito.times(1)).findById(Mockito.anyLong());
+    }
+
+    @Test
+    void getAllTask(){
+        List<TaskEntity> taskEntityList = new ArrayList<>();
+
+        TaskEntity task = new TaskEntity();
+        task.setStatus(Status.CREATED);
+        task.setTaskName("Testing task name");
+        taskEntityList.add(task);
+
+        Mockito.when(this.taskRepository.findAll()).thenReturn(taskEntityList);
+        Mockito.when(this.taskMapper.toTaskResponse(Mockito.any(TaskEntity.class))).thenReturn(new TaskResponse());
+
+        this.taskService.getAllTask();
+
+        Mockito.verify(this.taskRepository,Mockito.times(1)).findAll();
     }
 }
