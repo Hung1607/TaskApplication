@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
 
@@ -40,5 +42,17 @@ class TaskServiceTest {
 
         this.taskService.createTask(taskRequest);
         Mockito.verify(this.taskRepository,Mockito.times(1)).save(Mockito.any(TaskEntity.class));
+    }
+
+    @Test
+    void getTaskById(){
+        TaskEntity taskEntity = new TaskEntity();
+        Mockito.when(this.taskRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(taskEntity));
+
+        Mockito.when(this.taskMapper.toTaskResponse(Mockito.any(TaskEntity.class))).thenReturn(new TaskResponse());
+
+        this.taskService.getTaskById(1600L);
+
+        Mockito.verify(this.taskRepository,Mockito.times(1)).findById(Mockito.anyLong());
     }
 }
