@@ -1,0 +1,42 @@
+#spring:
+#  datasource:
+#    url: jdbc:mariadb://localhost:3307/task
+#    username: root
+#    password: password
+#    driver-class-name: org.mariadb.jdbc.Driver
+#
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          #          our app info registered with the author server
+#          keycloak:
+#            client-id: the-hungry-hub-client
+#            client-secret: 7sGajLKBFCh7gtPg9z0eg9sd8OSzJo5g
+#            scope: profile, email
+#            redirect-uri: http://localhost:8080/oauth2/callback/keycloak
+#            authorization-grant-type: authorization_code
+#        provider:
+#          #          where to authenticate endpoint
+#          keycloak:
+#            authorization-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/auth
+#            token-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/token
+#            user-info-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/userinfo
+#            user-name-attribute: preferred_username
+#            jwk-set-uri: http://localhost:8081/realms/TheHungryHub/protocol/openid-connect/certs
+#
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#
+#server:
+#  port: 8085
+#
+#app:
+#  cors:
+#    allowedOrigins: http://localhost:8080
+#
+#
+

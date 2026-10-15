@@ -1,0 +1,2 @@
+ALTER TABLE item
+ADD COLUMN details JSONB DEFAULT '[]'::jsonb NOT NULL;
