@@ -63,6 +63,14 @@ public class TaskService {
         return taskResponse;
     }
 
+    public TaskResponse moreTask(TaskRequest taskRequest){
+        TaskEntity task = taskMapper.toTaskEntity(taskRequest);
+        task.setStatus(Status.CREATED);
+        TaskEntity taskEntity = this.taskRepository.save(task);
+        kafkaProducerService.sendMessage(taskRequest);
+        return this.taskMapper.toTaskResponse(taskEntity);
+    }
+
     public TaskResponse updateTask(TaskRequest taskRequest){
         TaskEntity taskEntity = taskRepository.findById(taskRequest.getId())
                 .orElseThrow(BadRequestException::new);
