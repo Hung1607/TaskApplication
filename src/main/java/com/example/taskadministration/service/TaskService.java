@@ -22,7 +22,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ItemDetailMapper itemDetailMapper;
-    private final KafkaProducerService kafkaProducerService;
+//    private final KafkaProducerService kafkaProducerService;
 
     public TaskService(TaskRepository taskRepository, TaskMapper taskMapper,
                        ItemDetailMapper itemDetailMapper,
@@ -30,14 +30,14 @@ public class TaskService {
         this.taskMapper = taskMapper;
         this.taskRepository = taskRepository;
         this.itemDetailMapper = itemDetailMapper;
-        this.kafkaProducerService = kafkaProducerService;
+//        this.kafkaProducerService = kafkaProducerService;
     }
 
     public TaskResponse createTask(TaskRequest taskRequest){
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
-        kafkaProducerService.sendMessage(taskRequest);
+//        kafkaProducerService.sendMessage(taskRequest);
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
@@ -45,7 +45,6 @@ public class TaskService {
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
-        kafkaProducerService.sendMessage(taskRequest);
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
@@ -67,7 +66,7 @@ public class TaskService {
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
-        kafkaProducerService.sendMessage(taskRequest);
+//        kafkaProducerService.sendMessage(taskRequest);
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
