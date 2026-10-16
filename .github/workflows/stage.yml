@@ -12,7 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 #    environment: staging # for git hub environment
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -49,3 +48,7 @@ jobs:
             docker stop task-app || true
             docker rm task-app || true
             docker run -d -p 8080:8080 --name task-app ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+
