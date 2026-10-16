@@ -41,6 +41,14 @@ public class TaskService {
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
+    public TaskResponse addTask(TaskRequest taskRequest){
+        TaskEntity task = taskMapper.toTaskEntity(taskRequest);
+        task.setStatus(Status.CREATED);
+        TaskEntity taskEntity = this.taskRepository.save(task);
+        kafkaProducerService.sendMessage(taskRequest);
+        return this.taskMapper.toTaskResponse(taskEntity);
+    }
+
     public List<TaskResponse> getAllTask(){
         List<TaskEntity> taskEntityList = this.taskRepository.findAll();
         return taskEntityList.stream().map(this.taskMapper::toTaskResponse).toList();
