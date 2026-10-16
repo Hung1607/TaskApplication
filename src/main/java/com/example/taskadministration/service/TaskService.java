@@ -37,7 +37,7 @@ public class TaskService {
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
-//        kafkaProducerService.sendMessage(taskRequest);
+        kafkaProducerService.sendMessage(taskRequest);
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
