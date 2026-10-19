@@ -14,7 +14,7 @@ jobs:
 #    environment: staging # for git hub environment
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # downloads project's source code
 
       - name: Set up Java 21
         uses: actions/setup-java@v4
@@ -37,18 +37,18 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-      - name: Deploy to Remote Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-            docker stop task-app || true
-            docker rm task-app || true
-            docker run -d -p 8080:8080 --name task-app ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+#      - name: Deploy to Remote Server
+#        uses: appleboy/ssh-action@v1.0.3
+#        with:
+#          host: ${{ secrets.SERVER_HOST }}
+#          username: ${{ secrets.SERVER_USER }}
+#          key: ${{ secrets.SERVER_SSH_KEY }}
+#          script: |
+#            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+#            docker stop task-app || true
+#            docker rm task-app || true
+#            docker run -d -p 8080:8080 --name task-app ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
 

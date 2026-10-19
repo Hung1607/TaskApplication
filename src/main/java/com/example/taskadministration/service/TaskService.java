@@ -1,6 +1,7 @@
 package com.example.taskadministration.service;
 
 import com.example.taskadministration.dto.request.ItemRequest;
+import com.example.taskadministration.dto.request.TaskDue;
 import com.example.taskadministration.error.BadRequestException;
 import com.example.taskadministration.model.ItemDetailMapper;
 import com.example.taskadministration.model.TaskMapper;
@@ -13,6 +14,7 @@ import com.example.taskadministration.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,14 +24,18 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ItemDetailMapper itemDetailMapper;
+    private final RedisService redisService;
 //    private final KafkaProducerService kafkaProducerService;
 
-    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper,
+    public TaskService(TaskRepository taskRepository,
+                       TaskMapper taskMapper,
                        ItemDetailMapper itemDetailMapper,
+                       RedisService redisService,
                        KafkaProducerService kafkaProducerService){
         this.taskMapper = taskMapper;
         this.taskRepository = taskRepository;
         this.itemDetailMapper = itemDetailMapper;
+        this.redisService = redisService;
 //        this.kafkaProducerService = kafkaProducerService;
     }
 
@@ -37,7 +43,14 @@ public class TaskService {
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
+
 //        kafkaProducerService.sendMessage(taskRequest);
+//        TaskDue taskDue = new TaskDue();
+//        taskDue.setId(1500L);
+//        taskDue.setTaskName("New HOUSE");
+//        taskDue.setLocalDateTime(LocalDateTime.of(2026,10,20,01,13,00));
+//        this.redisService.saveData(taskDue.getId().toString(),taskDue,1000);
+
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
