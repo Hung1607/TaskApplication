@@ -37,18 +37,4 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-#      - name: Deploy to Remote Server
-#        uses: appleboy/ssh-action@v1.0.3
-#        with:
-#          host: ${{ secrets.SERVER_HOST }}
-#          username: ${{ secrets.SERVER_USER }}
-#          key: ${{ secrets.SERVER_SSH_KEY }}
-#          script: |
-#            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-#            docker stop task-app || true
-#            docker rm task-app || true
-#            docker run -d -p 8080:8080 --name task-app ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
-#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
 
