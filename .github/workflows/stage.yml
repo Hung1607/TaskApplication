@@ -24,7 +24,7 @@ jobs:
           cache: maven
 
       - name: Run Tests
-        run: mvn clean test
+        run: mvn clean install
 
   test:
     runs-on: ubuntu-latest
