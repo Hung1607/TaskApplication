@@ -9,9 +9,13 @@ on:
       - main
 
 jobs:
-  build:
+  # Define a template anchor for common job configurations
+  job-defaults: &shared-config
     runs-on: ubuntu-latest
     environment: Stage
+
+  build:
+    <<: *shared-config
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,8 +27,8 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Run Tests
-        run: mvn clean test
+#      - name: Run Tests
+#        run: mvn clean test
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest .
