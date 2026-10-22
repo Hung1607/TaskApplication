@@ -1,73 +1,25 @@
 spring:
-#  data:
-#    redis:
-#      host: localhost
-#      port: 6379
-#      timeout: 2000ms
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/task
-    username: postgres
-    password: 1234
-    driver-class-name: org.postgresql.Driver
+    url:
+    username:
+    password:
+    driver-class-name:
   jpa:
     hibernate:
-      ddl-auto: validate # check if match db but do nothing
-      # update mean validate with the db and entity, also change the db
-      # Important: 'validate' for production, 'update' for dev
+      ddl-auto: validate
     show-sql: true
   flyway:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
-    clean-disabled: false # ignore at V1__
+    clean-disabled: false
   kafka:
-      bootstrap-servers: localhost:9092
-      consumer:
-        group-id: sample-consumer-group
-        auto-offset-reset:  earliest
-        key-deserializer:   org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-        properties:
-          spring.json.value.default.type: com.example.taskadministration.dto.request.TaskRequest
-          spring.json.trusted.packages: com.example.taskadministration.dto.request
-          spring.json.use.type.headers: false
+      bootstrap-servers:
       producer:
         key-serializer: org.apache.kafka.common.serialization.StringSerializer
         value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-server: # listen
-  port: 8080
-
-
-
-
-#    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:task}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-#    username: ${DB_USERNAME:root}
-#    password: ${DB_PASSWORD:password}
-
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-##          our app info registered with the author server
-#          keycloak:
-#            client-id: the-hungry-hub-client
-#            client-secret: 7sGajLKBFCh7gtPg9z0eg9sd8OSzJo5g
-#            scope: profile, email
-#            redirect-uri: http://localhost:8080/oauth2/callback/keycloak
-#            authorization-grant-type: authorization_code
-#        provider:
-##          where to authenticate endpoint
-#          keycloak:
-#            authorization-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/auth
-#            token-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/token
-#            user-info-uri: http://localhost:8080/realms/TheHungryHub/protocol/openid-connect/userinfo
-#            user-name-attribute: preferred_username
-#            jwk-set-uri: http://localhost:8081/realms/TheHungryHub/protocol/openid-connect/certs
-
-#app:
-#  cors:
-#    allowedOrigins: http://localhost:8080
+server:
+  port:
 
 

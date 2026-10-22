@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    environment: staging # for git hub environment
+    environment: Stage
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 # downloads project's source code

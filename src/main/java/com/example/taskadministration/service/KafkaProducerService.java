@@ -13,6 +13,10 @@ public class KafkaProducerService {
     }
 
     public void sendMessage(TaskRequest taskRequest) {
-        kafkaTemplate.send("task_topic", taskRequest);
+        kafkaTemplate.send("task_create", taskRequest);
+    }
+
+    public void updateMessage(TaskRequest taskRequest) {
+        kafkaTemplate.send("task_update", taskRequest);
     }
 }

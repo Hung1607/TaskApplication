@@ -1,17 +1,17 @@
-package com.example.taskadministration.security.oauth2.user;
-
-import com.example.taskadministration.exception.OAuth2AuthenticationProcessingException;
-import com.example.taskadministration.dto.AuthProvider;
-
-import java.util.Map;
-
-public class OAuth2UserInfoFactory {
-
-    public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
-        if(registrationId.equalsIgnoreCase(AuthProvider.keycloak.toString())) {
-            return new KeycloakOauthUserInfo(attributes);
-        } else {
-            throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
-        }
-    }
-}
+//package com.example.taskadministration.security.oauth2.user;
+//
+//import com.example.taskadministration.exception.OAuth2AuthenticationProcessingException;
+//import com.example.taskadministration.dto.AuthProvider;
+//
+//import java.util.Map;
+//
+//public class OAuth2UserInfoFactory {
+//
+//    public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
+//        if(registrationId.equalsIgnoreCase(AuthProvider.keycloak.toString())) {
+//            return new KeycloakOauthUserInfo(attributes);
+//        } else {
+//            throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
+//        }
+//    }
+//}
