@@ -1,3 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server: # listen
+  port: 8080
+
 #spring:
 #  datasource:
 #    url: jdbc:mariadb://localhost:3307/task

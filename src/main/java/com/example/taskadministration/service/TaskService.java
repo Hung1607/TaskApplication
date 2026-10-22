@@ -12,7 +12,6 @@ import com.example.taskadministration.model.enums.Status;
 import com.example.taskadministration.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +23,8 @@ public class TaskService {
     private final ItemDetailMapper itemDetailMapper;
     private final KafkaProducerService kafkaProducerService;
 
-    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper,
+    public TaskService(TaskRepository taskRepository,
+                       TaskMapper taskMapper,
                        ItemDetailMapper itemDetailMapper,
                        KafkaProducerService kafkaProducerService){
         this.taskMapper = taskMapper;
@@ -37,7 +37,11 @@ public class TaskService {
         TaskEntity task = taskMapper.toTaskEntity(taskRequest);
         task.setStatus(Status.CREATED);
         TaskEntity taskEntity = this.taskRepository.save(task);
+
+        taskRequest.setId(taskEntity.getId());
+
 //        kafkaProducerService.sendMessage(taskRequest);
+
         return this.taskMapper.toTaskResponse(taskEntity);
     }
 
@@ -72,8 +76,10 @@ public class TaskService {
                 }
             }
         }
+
         taskEntity.setItemEntityList(itemEntityList);
         TaskEntity task = taskRepository.save(taskEntity);
+        kafkaProducerService.updateMessage(taskRequest);
         return taskMapper.toTaskResponse(task);
     }
 

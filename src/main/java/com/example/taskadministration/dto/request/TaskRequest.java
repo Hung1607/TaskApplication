@@ -5,6 +5,7 @@ import com.example.taskadministration.model.enums.Status;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TaskRequest {
@@ -13,6 +14,7 @@ public class TaskRequest {
     private String taskName;
     @NotBlank
     private String information;
+    private LocalDateTime deadline;
     @NotNull
     @NotEmpty
     private List<ItemRequest> itemRequestsList;
@@ -48,5 +50,12 @@ public class TaskRequest {
     }
     public void setItemRequestsList(List<ItemRequest> itemRequestsList) {
         this.itemRequestsList = itemRequestsList;
+    }
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
     }
 }
