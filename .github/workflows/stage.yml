@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - docker-stage
+      - stage
   pull_request:
     branches:
       - main
 
 jobs:
   build:
+    environment: ${{ github.ref == 'refs/heads/dev' && 'dev' || 'docker-stage' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,15 +24,8 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Run Tests
+      - name: build
         run: mvn clean install
-
-  dockerhub-image:
-    runs-on: ubuntu-latest
-    environment: Stage
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest .
