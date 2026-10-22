@@ -11,23 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: Stage
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Java 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-
-      - name: Run Tests
-        run: mvn clean install
-
-  test:
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
