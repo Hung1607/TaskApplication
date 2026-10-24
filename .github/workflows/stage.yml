@@ -23,7 +23,7 @@ jobs:
 
       - name: build and unit test
 #        if: github.event_name == 'pull_request' && github.base_ref == 'main'
-        if: github.event_name == 'push'
+#        if: github.event_name == 'push'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: Build Docker image
