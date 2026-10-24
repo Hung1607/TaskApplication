@@ -1,18 +1,12 @@
-name: Staging Pipeline
+name: Pipeline
 
 on:
   push:
-    branches:
-      - docker-stage
-      - stage
-      - task/test
   pull_request:
-    branches:
-      - main
 
 jobs:
   build:
-    environment: ${{ github.ref == 'refs/heads/dev' && 'dev' || 'stage' }}
+#    environment: ${{ github.ref == 'refs/heads/dev' && 'dev' || 'stage' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,18 +19,8 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: build
-        run: mvn clean install
+      - name: Build and unit test
+        if: github.event_name == 'push' && github.ref != 'main'
+        run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest .
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
 
