@@ -24,7 +24,7 @@ jobs:
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: build and integration test
-        if: github.event_name == 'pull_request' && github.base_ref == 'stage'
+        if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: sonarqube
