@@ -2,7 +2,9 @@ name: Pipeline
 
 on:
   push:
-  pull_request: 
+    branches:
+      - task/test
+  pull_request:
 
 jobs:
   build:
