@@ -1,13 +1,12 @@
 name: Pipeline
 
-on:
-  push:
-    branches:
-      - docker-stage
-      - stage
-  pull_request:
-    branches:
-      - main
+#on:
+#  push:
+#    branches:
+#      -
+#  pull_request:
+#    branches:
+#      - main
 
 jobs:
   build:
