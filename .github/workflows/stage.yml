@@ -21,9 +21,9 @@ jobs:
 
       - name: build and unit test
 #        if: github.event_name == 'push' && github.ref != 'main' || github.ref != 'stage'
-        if: github.event_name == 'push' && github.ref != 'main' && github.ref != 'stage'
+        if: github.event_name == 'push' && github.ref_name != 'main' && github.ref_name != 'stage'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: sonarqube
-        run: sh "imagine there is since sonarqube now can be pushed to by jenkins"
+        run: echo "imagine there is since sonarqube now can be pushed to by jenkins"
 
