@@ -1,12 +1,12 @@
 name: Staging Pipeline
 
 on:
-  push:
   pull_request:
+    branches:
+      - stage
 
 jobs:
   build:
-    environment: ${{ github.ref_name == 'dev' && 'dev' || 'stage' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,13 +19,10 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: build and unit test
-        if: github.event_name == 'push' && github.ref_name != 'main' && github.ref_name != 'stage'
-        run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
-
       - name: build and integration test
-        if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: sonarqube
         run: echo "imagine there is since sonarqube now can be pushed to by jenkins"
+
+
