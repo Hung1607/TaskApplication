@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    environment: ${{ github.base_ref == 'refs/heads/stage' && 'stage'}}
+    environment: ${{ github.ref_name == 'dev' && 'dev' || 'stage' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,8 +20,11 @@ jobs:
           cache: maven
 
       - name: build and unit test
-#        if: github.event_name == 'push' && github.ref != 'main' || github.ref != 'stage'
         if: github.event_name == 'push' && github.ref_name != 'main' && github.ref_name != 'stage'
+        run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
+
+      - name: build and integration test
+        if: github.event_name == 'pull_request' && github.base_ref == 'stage'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: sonarqube
