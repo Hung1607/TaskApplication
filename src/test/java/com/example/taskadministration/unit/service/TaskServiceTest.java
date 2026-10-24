@@ -1,4 +1,4 @@
-package com.example.taskadministration.service;
+package com.example.taskadministration.unit.service;
 
 import com.example.taskadministration.dto.request.TaskRequest;
 import com.example.taskadministration.dto.response.TaskResponse;
@@ -7,6 +7,7 @@ import com.example.taskadministration.model.entity.TaskEntity;
 import com.example.taskadministration.model.enums.Status;
 import com.example.taskadministration.repository.TaskRepository;
 
+import com.example.taskadministration.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
