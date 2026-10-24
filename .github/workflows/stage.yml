@@ -1,4 +1,4 @@
-name: Staging Pipeline
+name: Pipeline
 
 on:
   push:
@@ -24,8 +24,10 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: build
-        run: mvn clean install
+      - name: build and unit test
+#        if: github.event_name == 'pull_request' && github.base_ref == 'main'
+        if: github.event_name == 'push'
+        run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest .
@@ -38,4 +40,6 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+
+
 

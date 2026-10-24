@@ -1,7 +1,7 @@
 services:
-  kafka: # kafka-1
+  kafka:
     image: apache/kafka:3.7.0
-    container_name: kafka #kafka-1
+    container_name: kafka
     ports:
       - "9092:9092"
     networks:
@@ -18,6 +18,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
   db:
     image: postgres:16-alpine
     container_name: postgres_db
@@ -31,9 +32,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
-
-  # 2. Your Java Spring Boot App Service
-  app:
+  main-app:
     build: .
     container_name: java_app
     ports:

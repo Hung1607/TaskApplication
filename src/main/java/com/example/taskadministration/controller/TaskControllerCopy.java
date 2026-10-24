@@ -14,7 +14,7 @@ import java.util.List;
 
 @Generated
 @RestController
-@RequestMapping("/task")
+//@RequestMapping("/task")
 public class TaskControllerCopy {
     private final TaskService taskService;
 //    private UserRepository userRepository;
