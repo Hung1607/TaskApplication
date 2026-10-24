@@ -5,7 +5,7 @@ on:
     branches:
       - docker-stage
       - stage
-      - task-test
+      - task/test
   pull_request:
     branches:
       - main
