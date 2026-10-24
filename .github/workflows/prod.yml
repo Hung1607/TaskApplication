@@ -33,7 +33,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Build image
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest .
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/task-administration:latest
