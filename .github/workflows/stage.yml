@@ -6,21 +6,24 @@ on:
 
 jobs:
   build:
-#    environment: ${{ github.ref == 'refs/heads/dev' && 'dev' || 'stage' }}
+    environment: ${{ github.base_ref == 'refs/heads/stage' && 'stage'}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Set up Java 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
 
-      - name: Build and unit test
-        if: github.event_name == 'push' && github.ref != 'main'
+      - name: build and unit test
+#        if: github.event_name == 'push' && github.ref != 'main' || github.ref != 'stage'
+        if: github.event_name == 'push' && github.ref != 'main' && github.ref != 'stage'
         run: mvn clean install -Dtest="com.example.taskadministration.unit.service.*Test"
 
+      - name: sonarqube
+        run: sh "imagine there is since sonarqube now can be pushed to by jenkins"
 
