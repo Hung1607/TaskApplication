@@ -29,4 +29,3 @@ jobs:
 
       - name: sonarqube
         run: echo "imagine there is since sonarqube now can be pushed to by jenkins"
-
